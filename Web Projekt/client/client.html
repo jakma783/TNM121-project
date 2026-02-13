@@ -4,22 +4,31 @@
         <meta charset="UTF-8">
         <title>FilmScope</title>
         <meta name="author" content="AS, LB, WH, JM, JR ">
+        <meta name="description" content="FilmScope is an interactive web application for exploring movies and analyzing gender representation through IMDb data and the Bechdel Test.">
         <link rel="stylesheet" href="styles.css">
     </head>
     <body>
-
         <div class="task-bar">
-            <div class="logo-image">
+
+            <div class="left">
                 <img id="logo-image" src="media/logo.png" alt="logo">
             </div>
 
-            <div class="search-bar">
-                <input type="text" placeholder="Search for a movie...">
+            <div class="center">
+                <div class="search-wrapper">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" placeholder="Search for a movie...">
+                </div>
             </div>
 
-            <nav class="menu-btn">
+            <div class="right">
                 <button class="menu-btn">☰</button>
-            </nav>
+            </div>
+
+        </div>
+        <div class="recommendation-section">
+            <h2>Recommendation for you</h2>
+
         </div>
     </body>
 </html>
