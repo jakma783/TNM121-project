@@ -1,4 +1,5 @@
 const allGenres = ["action", "drama", "comedy"]; // make fetching function to extract all genre names
+const dontWords = ["no", "dont", "don't", "hate", "Dont", "without", "remove", "disslike"];
 
 const userGenre = [];
 
@@ -13,14 +14,13 @@ function sendTextBubble(userMessage) {
      const userText = document.createElement('p');
      userText.textContent = userMessage;
      userText.id = "message-sent";
-     
+
      textBubble.style.gridRow = userLine;
-     
+
      textBubble.appendChild(userText);
      document.body.appendChild(textBubble);
 
      console.log("User complete message was: " + userMessage);
-
 }
 
 
@@ -41,14 +41,14 @@ function sendPrompt() {
 //main process function--------------------------------------------------------------------------------
 function mainProcessMessage() {
      const messageArray = splitMessage(); // user message being split
-
+     disslike(messageArray);
      return getGenre(messageArray);
 }
 
 
 
 
-//text reader functions-----------------------------------------------------------------------------------------
+//split message functions-----------------------------------------------------------------------------------------
 function splitMessage() {
      const fullString = document.getElementById('message-sent');
      const messageArray = fullString.innerText.split(" ");
@@ -59,7 +59,7 @@ function splitMessage() {
      return messageArray;
 }
 
-
+//genre functions-------------------------------------------------------------------------------------------------
 function getGenre(messageArray) {
 
      for (let i = 0; i < messageArray.length; ++i) {
@@ -85,6 +85,44 @@ function isGenre(word) {
      console.log("the word: " + word + "  - is not a genre");
      return null;
 }
+
+//Remover function (Dont's)
+function disslike(messageWords) { // void function - no return value - only removes objects if dont's occur
+
+     for (let i = 0; i < messageWords.length; ++i) {
+
+          for (let j = 0; j < dontWords.length; ++j) {
+
+               if (messageWords[i] === dontWords[j]) {
+                    console.log("DONT word occured: " + messageWords[i]);
+
+                    for (let r= i; r < messageWords.length; ++r) {
+                         searchWord(messageWords[r]);
+                    }
+                    
+               }
+
+          }
+     }
+
+
+}
+
+function searchWord(potentialWord) { // one for loop for each user Category Array (top of document)
+
+     for (let i = 0; i < userGenre.length; ++i) {
+          if (potentialWord === userGenre[i]) {
+               //remove that word from user Array
+               return true
+          }
+     }
+
+     return false
+}
+
+
+
+
 
 
 
