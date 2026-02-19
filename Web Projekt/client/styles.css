@@ -44,6 +44,19 @@ body {
     width: 200px;
 }
 
+.genre-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 12px;
+}
+
+.genre-item {
+    padding: 10px 12px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
 .search-wrapper {
     position: relative;
     width: 60%;
@@ -81,5 +94,11 @@ h2 {
     padding: 30px;
     margin-top: 40px;
 }
+
+p {
+    font-family: 'Times New Roman', Times, serif;
+    color: azure;
+}
+
 
 
