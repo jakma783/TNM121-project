@@ -1,6 +1,8 @@
 const allGenres = ["action", "drama", "comedy"]; // make fetching function to extract all genre names
+
 const dontWords = ["no", "dont", "don't", "hate", "Dont", "without", "remove", "disslike"];
 const interruptingDontWords = ["although", "but", "however"];
+const runtimeWords = ["longer", "shorter", "runtime"]
 
 const userGenre = [];
 const userDisslikeGenres = [];
@@ -28,7 +30,6 @@ function sendTextBubble(userMessage) {
 }
 
 
-
 //send button-----------------------------------------------------------------------------------------------------
 function sendPrompt() {
      buttonCounter = buttonCounter + 1;
@@ -43,7 +44,7 @@ function sendPrompt() {
 
 
 
-//main process function-------------------------------------------------------------------------------------------
+//main process function------------------------------------------------------------------------*********************
 function mainProcessMessage() {
      const messageArray = splitMessage(); // user message being split
      getGenre(messageArray);
@@ -53,16 +54,11 @@ function mainProcessMessage() {
 
 
 
-//split message functions-----------------------------------------------------------------------------------------
-function splitMessage() {
-     const fullString = document.getElementById('message-sent' + buttonCounter);
-     const messageArray = fullString.innerText.split(" ");
-
-     for (let i = 0; i < messageArray.length; ++i) {
-          console.log("word " + i + ": " + messageArray[i]);
-     }
-     return messageArray;
-}
+//************************************ Movie-words based functions ***********************************************************************
+//-----------------------------------------------------------------------------------------------------------------------------------//
+//-----------------------------------------------------------------------------------------------------------------------------------//
+//-----------------------------------------------------------------------------------------------------------------------------------//
+//-----------------------------------------------------------------------------------------------------------------------------------//
 
 //genre functions-------------------------------------------------------------------------------------------------
 function getGenre(messageArray) {
@@ -72,6 +68,7 @@ function getGenre(messageArray) {
 
           if (thisWord != null) {
                removeObject(userGenre, thisWord);
+               removeObject(userDisslikeGenres, thisWord);
                userGenre.push(thisWord);
                console.log("currently, userGenre is: " + userGenre);
           }
@@ -92,8 +89,53 @@ function isGenre(word) {
      return null;
 }
 
+//runtime----------------------------------------------------------------------------------------------------------
+function getRuntime(messageArray) {
+     for (let i = 0; i < messageArray.length; ++i) {
+          if (9);
+     }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//************************************Sentence basedfunctions***********************************************************************
+//-----------------------------------------------------------------------------------------------------------------------------------//
+//-----------------------------------------------------------------------------------------------------------------------------------//
+//-----------------------------------------------------------------------------------------------------------------------------------//
+//-----------------------------------------------------------------------------------------------------------------------------------//
+
+
+//split message functions-----------------------------------------------------------------------------------------
+function splitMessage() {
+     const fullString = document.getElementById('message-sent' + buttonCounter);
+     const messageArray = fullString.innerText.split(" ");
+
+     for (let i = 0; i < messageArray.length; ++i) {
+          console.log("word " + i + ": " + messageArray[i]);
+     }
+     return messageArray;
+}
+
+
 //(Dont's) functions ----------------------------------------------------------------------------------------------------------
-function disslike(messageWords) { // void function - no return value - only removes objects if dont's occur
+function disslike(messageWords) { // checks if something is to be dissllike by user
 
      for (let i = 0; i < messageWords.length; ++i) { //go through each word in message
 
@@ -103,45 +145,49 @@ function disslike(messageWords) { // void function - no return value - only remo
                     console.log("DONT word occured: " + messageWords[i]);
 
                     for (let r = i + 1; r < messageWords.length; ++r) { //start from the dont word and remove all other categories after that
-                         searchWord(messageWords[r]);
+                         if (interruptedDontSentence(messageWords[r])) { console.log("an interruption in dont sentence occured"); break } //if sentence got interrupted e.g "i hate action but i do like comedy"
+                         else if (!interruptedDontSentence(messageWords[r])) { searchToDelete(messageWords[r]); }
                     }
-
                }
 
           }
      }
 }
 
-function searchWord(potentialWord) { // one for loop for each user Category Array (top of document)
+function searchToDelete(potentialWord) { // one call(incl. for-loop) for each user Category Array (top of document)
+     searchDeleteMini(potentialWord, userGenre, userDisslikeGenres); //genre
 
-     for (let i = 0; i < userGenre.length; ++i) {
-          if (potentialWord === userGenre[i]) {
+}
+
+function searchDeleteMini(PWord, userCatgrArray, dissliked) {
+     for (let i = 0; i < userCatgrArray.length; ++i) {
+          if (PWord === userCatgrArray[i]) {
                //remove that word from userGenre Array
-               console.log("the word: " + potentialWord + ", will be removed from userGenre");
-               removeObject(userGenre, potentialWord);
+               console.log("the word: " + PWord + ", will be removed from userGenre");
+               removeObject(userCatgrArray, PWord);
 
                //add the genre to userDisslikeGenres;
-               removeObject(userDisslikeGenres, potentialWord);
-               userDisslikeGenres.push(potentialWord);
+               removeObject(dissliked, PWord);
+               dissliked.push(PWord);
                return true
           }
      }
      return false
 }
 
-function removeObject(userArray, theObject) {
-     for (let i = 0; i < userArray.length; ++i) {
-          if (theObject === userArray[i]) {
-               userArray.splice(i, 1);
+function interruptedDontSentence(theWord) {
+     for (let i = 0; i < interruptingDontWords.length; ++i) {
+          if (theWord === interruptingDontWords[i]) {
+               console.log("INTERRUPT HAPPENING function");
+               console.log(theWord);
+               return true
           }
      }
+     return false
 }
 
-//function interruptingWord(theWord){}//****************************************************** */
 
-//function to make sure disslikesgenres!=userGenre (if necesssary);
-
-// remove object-------------------------------------------------------------------
+// remove object--------------------------------------------------------------------------------------------------------------
 function removeObject(userArray, theObject) {
      for (let i = 0; i < userArray.length; ++i) {
           if (theObject === userArray[i]) {
