@@ -2,6 +2,7 @@ const allGenres = ["action", "drama", "comedy"]; // make fetching function to ex
 const dontWords = ["no", "dont", "don't", "hate", "Dont", "without", "remove", "disslike"];
 
 const userGenre = [];
+const userDisslikeGenres = [];
 
 let chatLine = 1;
 let userLine = 2;
@@ -89,14 +90,14 @@ function isGenre(word) {
 //Remover function (Dont's)
 function disslike(messageWords) { // void function - no return value - only removes objects if dont's occur
 
-     for (let i = 0; i < messageWords.length; ++i) {
+     for (let i = 0; i < messageWords.length; ++i) { //go through each word in message
 
-          for (let j = 0; j < dontWords.length; ++j) {
+          for (let j = 0; j < dontWords.length; ++j) { //check if it matches any of the "dont's" words
 
                if (messageWords[i] === dontWords[j]) {
                     console.log("DONT word occured: " + messageWords[i]);
 
-                    for (let r= i; r < messageWords.length; ++r) {
+                    for (let r= i+1; r < messageWords.length; ++r) { //start from the dont word and remove all other categories after that
                          searchWord(messageWords[r]);
                     }
                     
@@ -112,7 +113,9 @@ function searchWord(potentialWord) { // one for loop for each user Category Arra
 
      for (let i = 0; i < userGenre.length; ++i) {
           if (potentialWord === userGenre[i]) {
-               //remove that word from user Array
+               //remove that word from userGenre Array
+               //add the genre to userDisslikeGenres;
+               console.log("the word: " + potentialWord + " is a genre")
                return true
           }
      }
