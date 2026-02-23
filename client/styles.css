@@ -12,11 +12,14 @@ body {
 }
 
 /* Logo, search-bar and menu tab layout */
-.left, .center, .right {
+.left,
+.center,
+.right {
     flex: 1;
     display: flex;
     align-items: center;
 }
+
 .left {
     justify-content: flex-start;
 }
@@ -40,6 +43,10 @@ body {
     height: 500px;
 }
 
+.image-description {
+    text-align: center;
+}
+
 #logo-image {
     width: 200px;
 }
@@ -51,10 +58,17 @@ body {
 }
 
 .genre-item {
-    padding: 10px 12px;
-    text-align: center;
-    border: 1px solid #ccc;
+    background: #1f2937;
+    color: white;
+    padding: 12px;
     border-radius: 10px;
+    border: 1px solid #374151;
+    font: inherit;
+    outline: none;
+}
+
+.genre-item:hover {
+    outline: 2px solid #60a5fa;
 }
 
 .search-wrapper {
@@ -100,5 +114,39 @@ p {
     color: azure;
 }
 
+.hero {
+    /*upper half picture */
+    height: 33vh;
+    background-image: url("media/batman.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    z-index: 1;
+}
 
+.marquee {
+    overflow: hidden;
+    width: 100%;
+}
 
+.marquee-track {
+    display: flex;
+    width: max-content;
+    animation: scroll 30s linear infinite;
+}
+
+.marquee-track img {
+    height: 240px;
+    margin-right: 40px;
+}
+
+@keyframes scroll {
+    from {
+        transform: translateX(-100%);
+    }
+
+    to {
+        transform: translateX(200%);
+    }
+}
