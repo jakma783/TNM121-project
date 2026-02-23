@@ -4,7 +4,6 @@ const { MongoClient } = require("mongodb");
 
 // Connect the route repository for API-enpoints
 const routes = require("./routes/routes");
-app.use(routes);
 
 // Server configuration
 const hostName = "127.0.0.1";
@@ -16,16 +15,24 @@ const dbURI = "mongodb://" + hostName + ":" + 27017;
 const dbName = "tnm121-project";
 const client = new MongoClient(dbURI);
 
+let db;
 // Connect to database
 async function connectToDataBase() {
     await client.connect();
+    db = client.db(dbName);
     console.log("Connected to MongoDB");
 }
 
 
 // Create sever
-const server = http.createServer((req, res) => {
-    sendResponse(res, 200, "text/plain", "Server is running");
+const server = http.createServer(async (req, res) => {
+    try {
+        await routes.handleRequest(req, res, db);
+    } catch (err) {
+        console.error(err);
+        res.statusCode(500);
+        res.end("Internal Server Error");
+    }
 });
 
 // function for sending response
@@ -52,7 +59,7 @@ function sendResponse(res, statusCode, contentType, data){
 
 async function startServer() {
     try {
-         await connectToDataBase();
+        await connectToDataBase();
 
         server.listen(port, hostName, () => {
         console.log("Server listening at " + serverURL);
