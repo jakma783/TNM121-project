@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", ( )=> {
     genres.sort();
 
     for (const genre of genres) {
-        const div = document.createElement("div");
+        const div = document.createElement("button");
         div.className = "genre-item";
         div.textContent = genre;
         grid.appendChild(div);
