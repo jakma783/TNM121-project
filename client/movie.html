@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=search" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=menu" />
+        <script src="movie.js" defer></script>
+        <title>Document</title>
+    </head>
+    <body class="movie-page">
+        <div class="task-bar">
+
+            <div class="left">
+                <img id="logo-image" src="media/logo.png" alt="logo">
+            </div>
+
+            <div class="center">
+                <div class="search-wrapper">
+                    <span class="search-icon"><span class="material-symbols-outlined"></span></span>
+                    <input type="text" id="searchInput" placeholder="Search for a movie..." autocomplete="off">
+                    <div id="resultsDropdown" class="dropdown"></div>
+                </div>
+            </div>
+
+            <div class="right">
+                <button class="menu-btn"><span class="material-symbols-outlined">menu</span></button>
+            </div>
+
+        </div>
+        <div class="movie-container">
+            <div class="poster-section">
+                <img id="poster" alt="movie image">
+            </div>
+        
+            <div class="info-section">
+                <h1 id="title">No title</h1>
+        
+                <div class="meta-row">
+                    <span id="year"></span>
+                    <span id="genre"></span>
+                    <span id="length"></span>
+                </div>
+        
+                <div class="ratings">
+                    <p><strong>IMDb:</strong> <span id="rating"></span></p>
+                    <p><strong>Bechdel:</strong> <span id="bechdel"></span></p>
+                </div>
+        
+                <p id="description"></p>
+        
+                <h3>Director</h3>
+                <ul id="director-list"></ul>
+        
+                <h3>Actors</h3>
+                <ul id="actors-list"></ul>
+        
+            </div>
+        </div>
+    </body>
+</html>

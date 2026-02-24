@@ -12,7 +12,9 @@ body {
 }
 
 /* Logo, search-bar and menu tab layout */
-.left, .center, .right {
+.left,
+.center,
+.right {
     flex: 1;
     display: flex;
     align-items: center;
@@ -95,6 +97,10 @@ body {
     padding: 16px;
 }
 
+.menu-wrapper{
+  position: relative;
+}
+
 h1 {
     color: azure;
     padding: 30px;
@@ -111,24 +117,6 @@ p {
     color: azure;
 }
 
-#resultsContainer ul {
-    list-style: none;
-    padding: 0;
-}
-
-#resultsContainer li {
-    padding: 8px;
-}
-
-#resultsContainer a {
-    text-decoration: none;
-}
-
-#resultsContainer li:hover {
-    background: #f0f0f0;
-}
-
-
 .hero {
     /*upper half picture */
     height: 33vh;
@@ -139,6 +127,7 @@ p {
     position: relative;
     z-index: 1;
 }
+
 
 .marquee {
     overflow: hidden;
@@ -164,4 +153,108 @@ p {
     to {
         transform: translateX(100%);
     }
+}
+
+/*********movie page**********************/
+
+.movie-page {
+    background: linear-gradient(to bottom, #0f0f0f, #1a1a1a);
+    color: white;
+    padding: 40px;
+}
+ 
+.movie-container {
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    gap: 50px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+ 
+.poster-section img {
+    width: 100%;
+    border-radius: 16px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+}
+ 
+.info-section h1 {
+    margin-top: 0;
+    font-size: 42px;
+}
+ 
+.meta-row {
+    display: flex;
+    gap: 20px;
+    color: #aaa;
+    margin-bottom: 20px;
+}
+ 
+.ratings {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 20px;
+}
+ 
+.info-section p {
+    line-height: 1.6;
+    font-size: 16px;
+}
+ 
+.info-section ul {
+    list-style: none;
+    padding: 0;
+}
+ 
+.info-section li {
+    margin-bottom: 6px;
+    color: #ccc;
+}
+
+/************ search dropdown ***********/
+
+.dropdown {
+    position: absolute;
+    top: 110%;
+    left: 0;
+    width: 100%;
+    background: #1c1c1c;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+    overflow: hidden;
+    z-index: 1000;
+    display: none;
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #2a2a2a;
+}
+ 
+.dropdown-item {
+    padding: 12px 16px;
+    color: white;
+    font-size: 14px;
+    transition: background 0.2s ease;
+}
+ 
+.dropdown-item:hover {
+    background: #2f2f2f;
+    cursor: pointer;
+}
+ 
+/* Smooth scroll look */
+.dropdown::-webkit-scrollbar {
+    width: 6px;
+}
+ 
+.dropdown::-webkit-scrollbar-thumb {
+    background: #444;
+    border-radius: 4px;
+}
+ 
+/************ menu dropdown ***********/
+
+#menuDropdown{
+  left: auto;         /* cancel left:0 from .dropdown */
+  right: 0;           /* align to the right edge (under the button) */
+  width: max-content; /* shrink to content */
+  min-width: 180px;   /* optional: consistent menu width */
 }
