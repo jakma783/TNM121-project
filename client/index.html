@@ -1,53 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>FilmScope</title>
-        <meta name="author" content="AS, LB, WH, JM, JR ">
-        <meta name="description" content="FilmScope is an interactive web application for exploring movies and analyzing gender representation through IMDb data and the Bechdel Test.">
-        <link rel="stylesheet" href="styles.css">
-    </head>
-    <body>
-        <div class="hero">
 
+<head>
+    <meta charset="UTF-8">
+    <title>FilmScope</title>
+    <meta name="author" content="AS, LB, WH, JM, JR ">
+    <meta name="description"
+        content="FilmScope is an interactive web application for exploring movies and analyzing gender representation through IMDb data and the Bechdel Test.">
+    <link rel="stylesheet" href="styles.css">
+    <script type="scripts.js"></script>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=search" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=menu" />
+</head>
+
+<body>
+    <div class="hero">
+
+        <div class="hero">
             <div class="task-bar">
 
                 <div class="left">
                     <img id="logo-image" src="media/logo.png" alt="logo">
                 </div>
-    
+
                 <div class="center">
                     <div class="search-wrapper">
-                        <span class="search-icon">🔍</span>
-                        <input type="text" placeholder="Search for a movie...">
+                        <span class="search-icon"><span class="material-symbols-outlined"></span></span>
+                        <input type="text" id="searchInput" placeholder="Search for a movie...">
+                        <div id="resultsContainer"></div>
                     </div>
                 </div>
-    
+
                 <div class="right">
-                    <button class="menu-btn">☰</button>
+                    <button class="menu-btn"><span class="material-symbols-outlined">menu</span></button>
                 </div>
-    
+
             </div>
-
         </div>
-        <div class="recommendation-section">
-            <h2>Recommendation for you</h2>
+    </div>
 
-            <div class="marquee"> <!--hårdkodad än så länge-->
-                <div class="marquee-track">
-                  <img src="media/avatar.jpeg">  
-                  <img src="media/godfather.jpeg">
-                  <img src="media/guardian_galaxy.jpeg">
-                  <img src="media/infinity_wars.jpeg">  
-                  <img src="media/jaws.jpeg">
-                  <img src="media/joker.jpeg">
-                  <img src="media/jurassic_park.jpeg">  
-                  <img src="media/lotr.jpeg">
-                  <img src="media/skyfall.jpeg">
-                  <img src="media/thing.jpeg">
-                </div>
-              </div>
 
+    </div>
+    <div class="recommendation-section">
+        <h2>Recommendation for you</h2>
+
+        <div class="marquee"> <!--hårdkodad än så länge-->
+            <div class="marquee-track">
+                <img src="media/avatar.jpeg">
+                <img src="media/godfather.jpeg">
+                <img src="media/guardian_galaxy.jpeg">
+                <img src="media/infinity_wars.jpeg">
+                <img src="media/jaws.jpeg">
+                <img src="media/joker.jpeg">
+                <img src="media/jurassic_park.jpeg">
+                <img src="media/lotr.jpeg">
+                <img src="media/skyfall.jpeg">
+                <img src="media/thing.jpeg">
+            </div>
         </div>
-    </body>
+
+    </div>
+</body>
+
 </html>
