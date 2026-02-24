@@ -1,14 +1,17 @@
 const allGenres = ["action", "drama", "comedy"]; // make fetching function to extract all genre names
-
-const dontWords = ["no", "dont", "don't", "hate", "Dont", "without", "remove", "disslike"];
-const interruptingDontWords = ["although", "but", "however"];
-//const runtimeWords = ["longer", "shorter", "runtime"];
 const runtimeUnits = ["min", "Min", "minutes", "Minutes", "minute", "Minute", "h", "H", "hours", "Hours", "hour", "Hour"];
+const allStars = ["Will Smith", "Eddie Murphy", "Jackie Chan", "Tom Cruise"];
+const allDirectors = ["Chris Nolan", "James Cameron", "Steven Spielberg"];
 
 const userGenre = [];
 const userDisslikeGenres = [];
 let userRuntimeMax = 0;
+const userStars = [];
+const userDirectors = [];
 
+
+const dontWords = ["no", "dont", "don't", "hate", "Dont", "without", "remove", "disslike"];
+const interruptingDontWords = ["although", "but", "however"];
 let buttonCounter = 0;
 let chatLine = 1;
 let userLine = 2;
@@ -42,6 +45,8 @@ function sendPrompt() {
     console.log("User genre is: " + userGenre);
     console.log("Dissliked genres are: " + userDisslikeGenres);
     console.log("user Runtime max= " + userRuntimeMax);
+    console.log("user Stars are/is= " + userStars);
+    console.log("user Diretors are/is= " + userDirectors);
     return userMessage;
 }
 
@@ -53,6 +58,9 @@ function mainProcessMessage() {
     getGenre(messageArray);
     disslike(messageArray);
     getRuntime(messageArray);
+    getName(messageArray, allStars, userStars); //actors
+    getName(messageArray, allDirectors, userDirectors); //Directors
+    getYear(messageArray);
 }
 
 
@@ -106,10 +114,10 @@ function getRuntime(messageArray) {
                     if (messageArray[r] === runtimeUnits[s]) {
 
                         if (messageArray[r].startsWith("m") || messageArray[r].startsWith("M")) {
-                            userRuntimeMax = userRuntimeMax +  parseFloat(messageArray[i]);
+                            userRuntimeMax = userRuntimeMax + parseFloat(messageArray[i]);
                         }
                         if (messageArray[r].startsWith("h") || messageArray[r].startsWith("H")) {
-                            userRuntimeMax = userRuntimeMax +  60*(parseFloat(messageArray[i])); // converting hours to min
+                            userRuntimeMax = userRuntimeMax + 60 * (parseFloat(messageArray[i])); // converting hours to min
                         }
                     }
                 }
@@ -119,8 +127,80 @@ function getRuntime(messageArray) {
     }
 }
 
-//
 
+//Stars or actors, movie names ect----------------------------------------------------------------------------------------------------------------
+
+function getName(messageArray, allNames, userNames) {
+    for (let i = 0; i < messageArray.length; ++i) {
+        if (i != messageArray.length - 1) { //if it's not on tghe last word, or else no last name
+            const possibleFullName = messageArray[i] + " " + messageArray[i + 1];
+
+            for (let s = 0; s < allNames.length; ++s) {
+                if (possibleFullName === allNames[s]) {
+                    userNames.push(possibleFullName);
+                    console.log("name added as star");
+                }
+            }
+        }
+        else { break; }
+    }
+}
+
+
+//release year--------------------------------------------------------------------------------------------------------------------------------------
+
+function getYear(messageArray) {
+    for (let i = 0; i < messageArray.length; ++i) {
+        messageArray[i] = messageArray[i].replace(",", "."); // replacing any "," with "."  to fix number
+
+        if (validYear(messageArray[i]) != null) { // if valid year string
+            const year = messageArray[i];
+
+//fix cases for the years...
+
+            for (let r = i + 1; r < messageArray.length; ++r) {
+
+
+            }
+        }
+    }
+}
+
+function validYear(inputYearString) {
+    let yearString = inputYearString.replace("s", "");
+    yearString = yearString.replace("S", "");
+
+    if (isFinite(yearString)) { // string is a year
+        if (yearString.length === 4) {
+            return yearString;
+        }
+
+        if (yearString.length === 2) {
+            let fixedYear = 0;
+
+            if (yearString.indexOf("0") === 0) {
+                const addYear = parseFloat(yearString);
+                fixedYear = 2000 + addYear;
+                return fixedYear;
+            }
+            else {
+                const addYear = parseFloat(yearString);
+                fixedYear = 1900 + addYear;
+                return fixedYear;
+            }
+
+        }
+    }
+    return null;
+}
+
+
+/*
+a want a movie from 2005    -  from  (year=2005)
+a want a movie made in 2005   - in (year = 2005)
+a want a movie made between 2005 and 2010    - if (year) appeares twice -->  large number = maxyear  small Number = minYear 
+a want a movie from the 80s  - length 3 && endWith("s" || "S")
+*/
 
 
 
@@ -146,7 +226,7 @@ function getRuntime(messageArray) {
 //-----------------------------------------------------------------------------------------------------------------------------------//
 
 
-//split message functions-----------------------------------------------------------------------------------------
+//split functions-----------------------------------------------------------------------------------------
 function splitMessage() {
     const fullString = document.getElementById('message-sent' + buttonCounter);
     const messageArray = fullString.innerText.split(" ");
@@ -156,6 +236,7 @@ function splitMessage() {
     }
     return messageArray;
 }
+
 
 
 //(Dont's) functions ----------------------------------------------------------------------------------------------------------
@@ -219,4 +300,3 @@ function removeObject(userArray, theObject) {
         }
     }
 }
-
