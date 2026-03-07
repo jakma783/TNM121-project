@@ -3,7 +3,7 @@ const http = require("node:http");
 const { MongoClient } = require("mongodb");
 
 // Connect the route repository for API-enpoints
-const routes = require("./routes/routes");
+const routes = require("./routes");
 
 // Server configuration
 const hostName = "127.0.0.1";

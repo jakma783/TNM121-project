@@ -3,6 +3,15 @@ const fs = require("node:fs");
 const path = require("node:path");
  
 async function handleRequest(req, res, db) {
+
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Headers", "*");
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+
+    if(req.method === "OPTIONS"){
+        res.statusCode = 204;
+        return res.end();
+    }
  
     const parsedUrl = new URL(req.url, `http://${req.headers.host}`);
     const pathname = parsedUrl.pathname;
@@ -25,6 +34,7 @@ async function handleRequest(req, res, db) {
                 {
                     projection: {
                         _id: 1,
+                        normalized_id: 1,
                         name: 1,
                         year: 1,
                         genre: 1,
@@ -96,8 +106,8 @@ async function handleRequest(req, res, db) {
     if(req.method === "GET" && pathname.startsWith("/image/")) {
         const normalizedID = pathname.split("/")[2];
 
-        const imagePath = path.join(__dirname, "../../client/media", normalizedID + ".png");
-        const placeholderPath = path.join(__dirname, "../../client/media", "placeholder.png");
+        const imagePath = path.join(__dirname, "../client/media", normalizedID + ".png");
+        const placeholderPath = path.join(__dirname, "../client/media", "placeholder.png");
 
         fs.readFile(imagePath, (err, data) => {
             // If there is no image to given normalized Id
