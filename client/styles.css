@@ -4,11 +4,18 @@ body {
     background-color: #111;
 }
 
+#logo-image {
+    width: 350px;
+    cursor: pointer;
+}
+
 /* Task bar implementation (row-structure) */
 .task-bar {
     display: flex;
     align-items: center;
     padding: 20px 40px;
+    position: relative;
+    z-index: 2;
 }
 
 /* Logo, search-bar and menu tab layout */
@@ -119,8 +126,8 @@ p {
 
 .hero {
     /*upper half picture */
-    height: 33vh;
-    background-image: url("media/batman.jpg");
+    height: 40vh;
+    background-image: url("media/batman.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -128,6 +135,17 @@ p {
     z-index: 1;
 }
 
+.movie-page .hero {
+    position: relative;
+}
+
+.movie-page .hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    backdrop-filter: blur(6px);
+    background: rgba(0, 0, 0, 0.6); /* dark overlay */
+}
 
 .marquee {
     overflow: hidden;
@@ -137,21 +155,22 @@ p {
 .marquee-track {
     display: flex;
     width: max-content;
-    animation: scroll 55s linear infinite;
+    animation: scroll 90s linear infinite;
 }
 
-.marquee-track img {
-    height: 240px;
-    margin-right: 40px;
+/* Pause sliding animation when hovering */
+.marquee-track:hover {
+    animation-play-state: paused;
 }
+
 
 @keyframes scroll {
     from {
-        transform: translateX(-100%);
+        transform: translateX(0);
     }
 
     to {
-        transform: translateX(100%);
+        transform: translateX(-50%);
     }
 }
 
@@ -160,7 +179,6 @@ p {
 .movie-page {
     background: linear-gradient(to bottom, #0f0f0f, #1a1a1a);
     color: white;
-    padding: 40px;
 }
  
 .movie-container {
@@ -169,6 +187,7 @@ p {
     gap: 50px;
     max-width: 1200px;
     margin: 0 auto;
+    padding: 40px;
 }
  
 .poster-section img {
@@ -257,4 +276,32 @@ p {
   right: 0;           /* align to the right edge (under the button) */
   width: max-content; /* shrink to content */
   min-width: 180px;   /* optional: consistent menu width */
+}
+
+/* movie recommendation slide */
+.movie-slide {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 40px;
+    cursor: pointer;
+    min-width: 108px;
+}
+
+.movie-slide img {
+    height: 240px;
+    border-radius: 6px;
+    transition: transform 0.2s ease;
+}
+
+.movie-slide:hover img {
+    transform: scale(1.05);
+}
+
+.movie-title {
+    margin-top: 8px;
+    font-size: 14px;
+    color: #ccc;
+    text-align: center;
+    max-width: 180px;
 }

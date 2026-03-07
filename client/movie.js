@@ -1,4 +1,3 @@
-const API_BASE = "http://127.0.0.1:3000";
 
 window.addEventListener("DOMContentLoaded", async () => {
 
@@ -21,6 +20,10 @@ window.addEventListener("DOMContentLoaded", async () => {
 
         // Image
         document.getElementById("poster").src = `${API_BASE}/image/${movie.normalized_id}`;
+        const hero = document.getElementById("heroBanner");
+        hero.style.backgroundImage = `url(${API_BASE}/image/${movie.normalized_id})`;
+        hero.style.backgroundSize = "cover";
+        hero.style.backgroundPosition = "center";
 
         // directors
         const directorList = document.getElementById("director-list");

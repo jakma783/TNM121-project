@@ -6,38 +6,42 @@ let debounceTimer = null;
 
 const API_BASE = "http://127.0.0.1:3000";
 
-searchInput.addEventListener("input", async () => {
-    const query = searchInput.value.trim();
+if(searchInput && resultsDropdown){
 
-    clearTimeout(debounceTimer);
+  searchInput.addEventListener("input", async () => {
+      const query = searchInput.value.trim();
 
-    debounceTimer = setTimeout(async () => {
-        if(query.length < 3){
-            resultsDropdown.innerHTML = "";
-            resultsDropdown.style.display = "none";
-            return;
-        }
-        try {
-            const url = `${API_BASE}/search?query=${query}`;
-            const response = await fetch(url);
+      clearTimeout(debounceTimer);
 
-            if(!response.ok){
-                resultsDropdown.innerHTML = "";
-                resultsDropdown.style.display = "none";
-                return;
-            }
+      debounceTimer = setTimeout(async () => {
+          if(query.length < 3){
+              resultsDropdown.innerHTML = "";
+              resultsDropdown.style.display = "none";
+              return;
+          }
+          try {
+              const url = `${API_BASE}/search?query=${encodeURIComponent(query)}`;
+              const response = await fetch(url);
 
-            const results = await response.json();
-            renderDropdown(results);
+              if(!response.ok){
+                  resultsDropdown.innerHTML = "";
+                  resultsDropdown.style.display = "none";
+                  return;
+              }
 
-        } catch(err){
-            console.error(err);
-            resultsDropdown.innerHTML = "";
-            resultsDropdown.style.display = "none";
-        }
-    }, 200);
+              const results = await response.json();
+              renderDropdown(results);
 
-});
+          } catch(err){
+              console.error(err);
+              resultsDropdown.innerHTML = "";
+              resultsDropdown.style.display = "none";
+          }
+      }, 200);
+
+  });
+
+}
 
 function renderDropdown(movies){
     resultsDropdown.innerHTML = "";
@@ -194,3 +198,74 @@ function initMenuDropdown() {
 }
 
 document.addEventListener("DOMContentLoaded", initMenuDropdown);
+
+async function loadRecommendations(){
+
+  const track = document.getElementById("recommendationTrack");
+  if(!track) return;
+
+  try {
+    const response = await fetch(`${API_BASE}/movies`);
+    const movies = await response.json();
+
+    track.innerHTML = "";
+
+    movies.forEach((movie) => {
+      const container = document.createElement("div");
+      container.classList.add("movie-slide");
+
+      const img = document.createElement("img");
+      img.loading = "lazy"; // Makes the website faster and more responsive due to large amount of data
+
+      // Use of server endpoint to connect movie title to image
+      img.src = `${API_BASE}/image/${movie.normalized_id}`;
+      img.alt = movie.name;
+      img.title = `${movie.name} (${movie.year})`;
+
+      const title = document.createElement("p");
+      title.classList.add("movie-title");
+      title.textContent = `${movie.name} (${movie.year})`;
+
+      container.appendChild(img);
+      container.appendChild(title);
+
+      container.addEventListener("click", () => {
+        window.location.href = `movie.html?id=${movie._id}`;
+      });
+
+      track.appendChild(container);
+    
+    });
+
+    // Duplicate trick for infinite slideshow action event
+    movies.forEach((movie) => {
+      const container = document.createElement("div");
+      container.classList.add("movie-slide");
+
+      const img = document.createElement("img");
+      img.loading = "lazy";
+      img.src = `${API_BASE}/image/${movie.normalized_id}`;
+      img.alt = movie.name;
+      img.title = `${movie.name} (${movie.year})`;
+
+      const title = document.createElement("p");
+      title.classList.add("movie-title");
+      title.textContent = `${movie.name} (${movie.year})`;
+
+      container.appendChild(img);
+      container.appendChild(title);
+
+      container.addEventListener("click", () => {
+        window.location.href = `movie.html?id=${movie._id}`;
+      });
+
+      track.appendChild(container);
+    });
+
+  } catch(err){
+    console.error("Failed to load recommendations", err);
+  }
+  
+}
+
+document.addEventListener("DOMContentLoaded", loadRecommendations);
