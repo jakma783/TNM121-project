@@ -1,3 +1,6 @@
+body{
+background-color: rgb(70, 64, 64);
+}
 
 .bottom-writer-bar{
      position: fixed;
@@ -12,14 +15,11 @@
 }
 
 .input-bar{
-     border-radius: 10px;
+     border-radius: 20px;
      height: 50px;
      width: 500px;
      font-size: large;
 }
-
-
-
 
 .chat-area{
      display: grid;
@@ -52,6 +52,19 @@
      font-weight: 490;
      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
      background-color: rgba(134, 230, 198, 0.536);
+}
+
+.chat-message{
+     grid-column: 1;
+     display: flex;
+     justify-content: left;
+     border-radius: 20px;
+
+     text-align: left;
+     font-size: medium;
+     font-weight: 490;
+     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+     background-color: rgba(250, 235, 215, 0.823);
 }
 
 .prompt-bar{
