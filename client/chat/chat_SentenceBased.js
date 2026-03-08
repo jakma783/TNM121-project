@@ -80,6 +80,8 @@ function removeObject(userArray, theObject) {
      for (let i = 0; i < userArray.length; ++i) {
           if (theObject === userArray[i]) {
                userArray.splice(i, 1);
+               break;
           }
      }
+
 }
